@@ -17,12 +17,14 @@ public class PowerUp : MonoBehaviour
             {
                 case PowerType.Launch:
                     collision.transform.parent.GetComponent<Rigidbody2D>().AddForceY(launchForce);
-                    
+
                     break;
 
 
 
             }
+
+            Destroy(gameObject);
         }
     }
 
