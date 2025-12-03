@@ -1,5 +1,4 @@
 using System;
-//using System.Numerics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -82,12 +81,13 @@ public class PlayerController : MonoBehaviour
         dirMeter.GetComponent<Slider>().value = dirVal;
 
         Vector3 mousePos = Input.mousePosition;
+        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
-        // Convert to world coordinates (z is required for depth)
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
-        //Debug.Log($"Mouse World Position: X={worldPos.x}, Y={worldPos.y}, Z={worldPos.z}");
+        Vector2 direction = mousePos - tongue.transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        tongue.transform.LookAt(new Vector2(worldPos.x, worldPos.y));
+        tongue.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
 
         //Tongue Grab logic
         //TODO
