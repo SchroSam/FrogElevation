@@ -1,5 +1,7 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -61,7 +63,7 @@ public class PlayerController : MonoBehaviour
 
 
         //Aiming Logic
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             dirVal -= Time.deltaTime * dirMult;
 
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour
                 dirVal = -dirAbsMax;
         }
 
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             dirVal += Time.deltaTime * dirMult;
 
@@ -119,5 +121,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+    }
+
+    public void GrabbedItem()
+    {
+        tongueTime = true;
+        tongueReverse = true;
     }
 }
