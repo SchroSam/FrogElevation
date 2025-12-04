@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -26,6 +27,9 @@ public class PlayerController : MonoBehaviour
     private GameObject chargeMeter;
     private GameObject dirMeter;
     private GameObject tongue;
+    private TMP_Text timerText;
+    private TMP_Text pointText;
+    private TMP_Text multText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,6 +37,10 @@ public class PlayerController : MonoBehaviour
         chargeMeter = GameObject.Find("ChargeMeter");
         dirMeter = GameObject.Find("DirMeter");
         tongue = GameObject.Find("Tongue");
+        timerText = GameObject.Find("Timer").GetComponent<TMP_Text>();
+        pointText = GameObject.Find("Points").GetComponent<TMP_Text>();
+        multText = GameObject.Find("Mult").GetComponent<TMP_Text>();
+
 
         dirMeter.GetComponent<Slider>().maxValue = dirAbsMax;
         dirMeter.GetComponent<Slider>().minValue = -dirAbsMax;
@@ -97,7 +105,6 @@ public class PlayerController : MonoBehaviour
 
 
         //Tongue Grab logic
-        //TODO
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && !tongueTime)
         {
@@ -126,6 +133,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        //Mult Timer Logic
         if (multTimerOn)
         {
             multTimeLeft -= Time.deltaTime;
@@ -135,8 +143,12 @@ public class PlayerController : MonoBehaviour
                 multTimeLeft = 0;
                 multTimerOn = false;
                 currentMult = 1f;
+                multText.text = $"Multiplier: {currentMult:F2}";
             }
         }
+
+        timerText.text = $"MultTime: {multTimeLeft:F2}";
+
 
     }
 
@@ -150,6 +162,7 @@ public class PlayerController : MonoBehaviour
     public void AddPoints(float val)
     {
         totalPoints += val * currentMult;
+        pointText.text = $"Points: {totalPoints:F2}";
     }
 
     public void PointMult()
@@ -157,5 +170,6 @@ public class PlayerController : MonoBehaviour
         multTimerOn = true;
         multTimeLeft += multTimeToAdd;
         currentMult += multValAdd;
+        multText.text = $"Multiplier: {currentMult:F2}";
     }
 }
