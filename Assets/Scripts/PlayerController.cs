@@ -17,7 +17,12 @@ public class PlayerController : MonoBehaviour
     private float startTongueSize;
     private bool tongueTime = false;
     private bool tongueReverse = false;
-    //public float sinPeriod = 0.006f;
+    public float totalPoints = 0f;
+    public float currentMult = 1f;
+    public float multTimeLeft = 0f;
+    public float multTimeToAdd = 3f;
+    public float multValAdd = 0.3f;
+    private bool multTimerOn = false;
     private GameObject chargeMeter;
     private GameObject dirMeter;
     private GameObject tongue;
@@ -121,11 +126,36 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (multTimerOn)
+        {
+            multTimeLeft -= Time.deltaTime;
+
+            if(multTimeLeft <= 0)
+            {
+                multTimeLeft = 0;
+                multTimerOn = false;
+                currentMult = 1f;
+            }
+        }
+
     }
 
     public void GrabbedItem()
     {
         tongueTime = true;
         tongueReverse = true;
+    }
+
+
+    public void AddPoints(float val)
+    {
+        totalPoints += val * currentMult;
+    }
+
+    public void PointMult()
+    {
+        multTimerOn = true;
+        multTimeLeft += multTimeToAdd;
+        currentMult += multValAdd;
     }
 }
