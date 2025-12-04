@@ -24,6 +24,7 @@ public class PowerUp : MonoBehaviour
 
             }
 
+            collision.transform.parent.GetComponent<PlayerController>().GrabbedItem();
             Destroy(gameObject);
         }
     }
