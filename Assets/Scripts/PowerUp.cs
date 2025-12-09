@@ -1,13 +1,14 @@
 using UnityEngine;
 
 [System.Serializable]
-public enum PowerType {Launch};
+public enum PowerType {Launch, Points, PointMult};
 
 public class PowerUp : MonoBehaviour
 {
 
     public PowerType powerType;
     public float launchForce = 100f;
+    public float pointVal = 5f; 
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -20,6 +21,15 @@ public class PowerUp : MonoBehaviour
 
                     break;
 
+                case PowerType.Points:
+                    FindFirstObjectByType<PlayerController>().AddPoints(pointVal);
+
+                    break;
+
+                case PowerType.PointMult:
+                    FindFirstObjectByType<PlayerController>().PointMult();
+                    
+                    break;
 
 
             }

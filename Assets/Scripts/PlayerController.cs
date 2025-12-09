@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,10 +18,18 @@ public class PlayerController : MonoBehaviour
     private float startTongueSize;
     private bool tongueTime = false;
     private bool tongueReverse = false;
-    //public float sinPeriod = 0.006f;
+    public float totalPoints = 0f;
+    public float currentMult = 1f;
+    public float multTimeLeft = 0f;
+    public float multTimeToAdd = 3f;
+    public float multValAdd = 0.3f;
+    private bool multTimerOn = false;
     private GameObject chargeMeter;
     private GameObject dirMeter;
     private GameObject tongue;
+    private TMP_Text timerText;
+    private TMP_Text pointText;
+    private TMP_Text multText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,6 +37,10 @@ public class PlayerController : MonoBehaviour
         chargeMeter = GameObject.Find("ChargeMeter");
         dirMeter = GameObject.Find("DirMeter");
         tongue = GameObject.Find("Tongue");
+        timerText = GameObject.Find("Timer").GetComponent<TMP_Text>();
+        pointText = GameObject.Find("Points").GetComponent<TMP_Text>();
+        multText = GameObject.Find("Mult").GetComponent<TMP_Text>();
+
 
         dirMeter.GetComponent<Slider>().maxValue = dirAbsMax;
         dirMeter.GetComponent<Slider>().minValue = -dirAbsMax;
@@ -92,7 +105,6 @@ public class PlayerController : MonoBehaviour
 
 
         //Tongue Grab logic
-        //TODO
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && !tongueTime)
         {
@@ -121,11 +133,43 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        //Mult Timer Logic
+        if (multTimerOn)
+        {
+            multTimeLeft -= Time.deltaTime;
+
+            if(multTimeLeft <= 0)
+            {
+                multTimeLeft = 0;
+                multTimerOn = false;
+                currentMult = 1f;
+                multText.text = $"Multiplier: {currentMult:F2}";
+            }
+        }
+
+        timerText.text = $"MultTime: {multTimeLeft:F2}";
+
+
     }
 
     public void GrabbedItem()
     {
         tongueTime = true;
         tongueReverse = true;
+    }
+
+
+    public void AddPoints(float val)
+    {
+        totalPoints += val * currentMult;
+        pointText.text = $"Points: {totalPoints:F2}";
+    }
+
+    public void PointMult()
+    {
+        multTimerOn = true;
+        multTimeLeft += multTimeToAdd;
+        currentMult += multValAdd;
+        multText.text = $"Multiplier: {currentMult:F2}";
     }
 }
