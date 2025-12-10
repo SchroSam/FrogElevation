@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().AddForceY(jumpCharge);
             GetComponent<Rigidbody2D>().AddForceX(dirVal);
-            GetComponent<SpriteRenderer>().color = Color.white;
+            //GetComponent<SpriteRenderer>().color = Color.white;
             dirVal = 0;
             jumpCharge = 0;
         }
