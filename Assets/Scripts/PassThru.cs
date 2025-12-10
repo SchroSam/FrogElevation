@@ -10,7 +10,7 @@ public class PassThru : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player.transform.position.y < transform.position.y)
+        if(player.transform.position.y - 0.2f < transform.position.y)
         {
             GetComponent<BoxCollider2D>().isTrigger = true;
         }
