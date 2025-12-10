@@ -28,7 +28,7 @@ public class Cam : MonoBehaviour
         targetTransform.y = target.transform.position.y + yOffset;
 
         //if(transform.position.y + (GetComponent<Camera>().orthographicSize / 2) < maxHeight)
-        transform.position = Vector3.SmoothDamp(transform.position, targetTransform, ref velocity, smoothTime);
+        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(0, targetTransform.y, targetTransform.z), ref velocity, smoothTime);
 
         if(transform.position.y + (GetComponent<Camera>().orthographicSize / 2) > maxHeight || camLock)
         {

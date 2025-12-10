@@ -17,15 +17,19 @@ public class PlatformGeneratorGrid : MonoBehaviour
     [Header("Position Offset")]
     public float startY = 0f;             // starting vertical position
     public float startX = -6f;            // where slot 0 begins
+    public float maxHeight;
 
     private List<int> lastRowColumns = new List<int>();  // columns used in previous row
 
+    private GameObject player;
+
     void Start()
     {
+        player = GameObject.Find("Frog");
         GeneratePlatforms();
     }
 
-    void GeneratePlatforms()
+    public void GeneratePlatformsOld()
     {
         for (int row = 0; row < rows; row++)
         {
@@ -45,6 +49,8 @@ public class PlatformGeneratorGrid : MonoBehaviour
             // Track columns used this row
             List<int> currentRowColumns = new List<int>();
 
+            float nextYPos = 0;
+
             for (int i = 0; i < platformsToSpawn; i++)
             {
                 int chosenIndex = Random.Range(0, availableCols.Count);
@@ -57,10 +63,46 @@ public class PlatformGeneratorGrid : MonoBehaviour
                 float yPos = startY + (row * ySpacing);
 
                 Instantiate(platformPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+
+                if(nextYPos < yPos)
+                    nextYPos = yPos;
             }
+
+            startY = nextYPos;
 
             // Remember columns for next row
             lastRowColumns = currentRowColumns;
+        }
+    }
+
+    public void GeneratePlatforms()
+    {
+        // Generate platforms in groups of 5
+        for (int i = 0; i < 5; i++)
+        {
+            // Random x position within available slots with larger offset
+            int randomCol = Random.Range(0, cols);
+            float xPos = startX + (randomCol * xSpacing) + Random.Range(-1.2f, 1.2f);
+            
+            // Smaller y spacing for tighter vertical clustering
+            float yOffset = Random.Range(-0.2f, 0.2f);
+            float yPos = startY + (i * 0.8f) + yOffset;
+            
+            // Instantiate the platform
+            Instantiate(platformPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+            
+            // Update startY to the highest platform created
+            if (yPos > startY)
+                startY = yPos;
+        }
+    }
+
+    public void FixedUpdate()
+    {
+        if(player.transform.position.y + 15 >= startY && player.transform.position.y < maxHeight)
+        {
+            Debug.Log($"startY: {startY}");
+            GeneratePlatforms();
         }
     }
 }
