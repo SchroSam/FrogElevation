@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7303977550618074974}
   - component: {fileID: 2745004468977802402}
   - component: {fileID: 6490017645173384922}
+  - component: {fileID: 7543920906299311032}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -147,8 +148,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40950120a9033d847889dde7f3d18958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  platformPrefab: {fileID: 0}
-  verticalSpacing: 2
-  initialPlatforms: 10
-  xPadding: 0.5
+  platformPrefab: {fileID: 5308442703977352721}
+  rows: 20
+  cols: 5
+  xSpacing: 3
+  ySpacing: 2
+  minPlatformsPerRow: 1
+  maxPlatformsPerRow: 2
+  startY: 0
+  startX: -6
+--- !u!114 &7543920906299311032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5308442703977352721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ee3ff38c3a6db846864c7bd5be24903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
