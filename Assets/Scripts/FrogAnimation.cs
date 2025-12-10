@@ -5,42 +5,46 @@ public class FrogAnimation : MonoBehaviour
     public Sprite sittingSprite;
     public Sprite jumpingSprite;
 
+    public AudioClip jumpSound;
+    private AudioSource audioSource;
+
     private SpriteRenderer sr;
     private bool isGrounded = true;
+    private Rigidbody2D rb;
 
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
+        rb = GetComponent<Rigidbody2D>();
+
         sr.sprite = sittingSprite;
     }
 
     void Update()
     {
-        // Change sprite depending on grounded state
+        // If frog just jumped (velocity > 0 AND was grounded)
+        if (isGrounded && rb.velocity.y > 0.1f)
+        {
+            // Play jump sound ONCE
+            if (jumpSound != null)
+                audioSource.PlayOneShot(jumpSound);
+
+            isGrounded = false;
+        }
+
+        // Update sprite
         if (isGrounded)
-        {
             sr.sprite = sittingSprite;
-        }
         else
-        {
             sr.sprite = jumpingSprite;
-        }
     }
 
-    // Detect ground/platforms
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Platform"))
         {
             isGrounded = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Platform"))
-        {
-            isGrounded = false;
         }
     }
 }
