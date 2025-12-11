@@ -10,39 +10,29 @@ public class Cam : MonoBehaviour
     public float yOffset = 1;
 
     private bool camLock = false;
-
     public float maxHeight = 99999;
 
-    // Update is called once per frame
-    private void Start()
-    {
+    // NEW: stop following flag
+    public bool stopFollowing = false;
 
-
-    }
     void Update()
     {
-        //if (Math.Abs(target.GetComponent<Rigidbody2D>().linearVelocity.y) > minYspeed)
-        //{
+        if (stopFollowing) return; // freeze camera when player dies
+
         targetTransform = target.transform.position;
         targetTransform.z = transform.position.z;
         targetTransform.y = target.transform.position.y + yOffset;
 
-        //if(transform.position.y + (GetComponent<Camera>().orthographicSize / 2) < maxHeight)
-        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(0, targetTransform.y, targetTransform.z), ref velocity, smoothTime);
+        // Smooth follow
+        transform.position = Vector3.SmoothDamp(transform.position, 
+            new Vector3(0, targetTransform.y, targetTransform.z), ref velocity, smoothTime);
 
-        if(transform.position.y + (GetComponent<Camera>().orthographicSize / 2) > maxHeight || camLock)
+        if (transform.position.y + (GetComponent<Camera>().orthographicSize / 2) > maxHeight || camLock)
         {
             camLock = true;
-            //transform.position = Vector3.SmoothDamp(transform.position, new Vector3(transform.position.x, transform.position.y - 3, transform.position.z), ref velocity, smoothTime);
             transform.position = new Vector3(transform.position.x, 1.07f, transform.position.z);
             transform.GetComponent<Camera>().orthographicSize = 6.93f;
         }
-
-
     }
-        // else
-        // {
-        //     transform.position = new Vector3(target.transform.position.x, yspot, -10);
-        // }
-        // }
 }
+

@@ -31,7 +31,13 @@ public class PlayerController : MonoBehaviour
     private TMP_Text pointText;
     private TMP_Text multText;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // NEW: Death handling
+    public float fallVelocityToDie = 10f;  // Positive Y velocity threshold
+    public GameObject deathCanvas;         // Assign in Inspector
+    private bool isDead = false;
+    private BoxCollider2D boxCollider;
+    private Rigidbody2D rb;
+
     void Start()
     {
         chargeMeter = GameObject.Find("ChargeMeter");
@@ -41,104 +47,107 @@ public class PlayerController : MonoBehaviour
         pointText = GameObject.Find("Points").GetComponent<TMP_Text>();
         multText = GameObject.Find("Mult").GetComponent<TMP_Text>();
 
-
         dirMeter.GetComponent<Slider>().maxValue = dirAbsMax;
         dirMeter.GetComponent<Slider>().minValue = -dirAbsMax;
         dirMeter.GetComponent<Slider>().value = 0f;
 
         startTongueSize = tongue.transform.localScale.x;
+
+        // NEW
+        rb = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
+
+        if (deathCanvas != null)
+            deathCanvas.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //Jump Logic
+        if (isDead) return; // stop input after death
+
+        // ------------------------------
+        // NEW: Check death by velocity
+        // ------------------------------
+        if (rb.linearVelocity.y <- fallVelocityToDie)
+        {
+            EndGame();
+            return;
+        }
+
+        // ------------------------------
+        // Jump Logic
+        // ------------------------------
         if (Input.GetKey(KeyCode.Space))
         {
             jumpCharge += Time.deltaTime * chargeMultiplier;
 
-            //GetComponent<SpriteRenderer>().color = new Color(Mathf.Sin(400 * jumpCharge * sinPeriod) * 125 + 125, Mathf.Sin(400 * jumpCharge * sinPeriod) * 125 + 125, Mathf.Sin(400 * jumpCharge * sinPeriod) * 125 + 125);
-
-            if(jumpCharge > jumpChargeMax)
+            if (jumpCharge > jumpChargeMax)
                 jumpCharge = jumpChargeMax;
         }
 
-        if(Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space))
         {
-            GetComponent<Rigidbody2D>().AddForceY(jumpCharge);
-            GetComponent<Rigidbody2D>().AddForceX(dirVal);
-            //GetComponent<SpriteRenderer>().color = Color.white;
+            rb.AddForceY(jumpCharge);
+            rb.AddForceX(dirVal);
             dirVal = 0;
             jumpCharge = 0;
         }
 
         chargeMeter.GetComponent<Slider>().value = jumpCharge / jumpChargeMax;
 
-
-        //Aiming Logic
+        // ------------------------------
+        // Aiming Logic
+        // ------------------------------
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             dirVal -= Time.deltaTime * dirMult;
-
-            if(Math.Abs(dirVal) > dirAbsMax)
+            if (Math.Abs(dirVal) > dirAbsMax)
                 dirVal = -dirAbsMax;
         }
-
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             dirVal += Time.deltaTime * dirMult;
-
-            if(Math.Abs(dirVal) > dirAbsMax)
+            if (Math.Abs(dirVal) > dirAbsMax)
                 dirVal = dirAbsMax;
         }
-
 
         dirMeter.GetComponent<Slider>().value = dirVal;
 
         Vector3 mousePos = Input.mousePosition;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-
         Vector2 direction = mousePos - tongue.transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
         tongue.transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
-
-        //Tongue Grab logic
-
+        // Tongue logic
         if (Input.GetKeyDown(KeyCode.Mouse0) && !tongueTime)
         {
             tongueTime = true;
-            Debug.Log("Start Tongue");
         }
 
         if (tongueTime && !tongueReverse)
         {
             tongue.transform.localScale = new Vector3(tongue.transform.localScale.x + Time.deltaTime * tongueGrowSpeed, tongue.transform.localScale.y, tongue.transform.localScale.z);
 
-            if(tongue.transform.localScale.x >= maxTongueSize){
+            if (tongue.transform.localScale.x >= maxTongueSize)
                 tongueReverse = true;
-                Debug.Log("Reverse Tongue");
-            }
         }
-
-        else if(tongueTime && tongueReverse)
+        else if (tongueTime && tongueReverse)
         {
             tongue.transform.localScale = new Vector3(tongue.transform.localScale.x - Time.deltaTime * tongueGrowSpeed, tongue.transform.localScale.y, tongue.transform.localScale.z);
-            
-            if(tongue.transform.localScale.x <= startTongueSize)
+
+            if (tongue.transform.localScale.x <= startTongueSize)
             {
                 tongueReverse = false;
                 tongueTime = false;
             }
         }
 
-        //Mult Timer Logic
+        // Multiplier timer
         if (multTimerOn)
         {
             multTimeLeft -= Time.deltaTime;
-
-            if(multTimeLeft <= 0)
+            if (multTimeLeft <= 0)
             {
                 multTimeLeft = 0;
                 multTimerOn = false;
@@ -146,10 +155,23 @@ public class PlayerController : MonoBehaviour
                 multText.text = $"Multiplier: {currentMult:F2}";
             }
         }
-
         timerText.text = $"MultTime: {multTimeLeft:F2}";
+    }
 
+    private void EndGame()
+    {
+        if (isDead) return;
+        isDead = true;
 
+        Debug.Log("GAME OVER");
+
+        // Turn off BoxCollider2D so frog falls through platforms
+        if (boxCollider != null)
+            boxCollider.enabled = false;
+
+        // Show death canvas
+        if (deathCanvas != null)
+            deathCanvas.SetActive(true);
     }
 
     public void GrabbedItem()
@@ -157,7 +179,6 @@ public class PlayerController : MonoBehaviour
         tongueTime = true;
         tongueReverse = true;
     }
-
 
     public void AddPoints(float val)
     {

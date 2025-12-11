@@ -24,7 +24,7 @@ public class FrogAnimation : MonoBehaviour
     void Update()
     {
         // If frog just jumped (velocity > 0 AND was grounded)
-        if (isGrounded && rb.velocity.y > 0.1f)
+        if (isGrounded && rb.linearVelocity.y > 0.1f)
         {
             // Play jump sound ONCE
             if (jumpSound != null)
