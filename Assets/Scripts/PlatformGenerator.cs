@@ -28,8 +28,15 @@ public class PlatformGeneratorGrid : MonoBehaviour
     private List<GameObject> powerUps;
     public int powerChance = 4;
 
+    [Header("Platform Sprites")]
+    public Sprite plat1;
+    public Sprite plat2;
+    public Sprite plat3;
+    public Sprite plat4;
+
     //private List<int> lastRowColumns = new List<int>();  // columns used in previous row
-    private List<Vector3> allPlatformPositions = new List<Vector3>();  // all platforms ever spawned
+    private List<Vector3> allPlatformPositions = new List<Vector3>();
+    private List<Sprite> sprites = new List<Sprite>();
 
     private GameObject player;
 
@@ -37,6 +44,7 @@ public class PlatformGeneratorGrid : MonoBehaviour
     {
         player = GameObject.Find("Frog");
         powerUps = new List<GameObject>{power1, power2, power3};
+        sprites = new List<Sprite>{plat1, plat2, plat3, plat4};
         GeneratePlatforms();
     }
 
@@ -128,6 +136,7 @@ public class PlatformGeneratorGrid : MonoBehaviour
             
             // Instantiate the platform
             Vector3 platformPos = new Vector3(xPos, yPos, 0);
+            platformPrefab.GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, 4)];
             Instantiate(platformPrefab, platformPos, Quaternion.identity);
             allPlatformPositions.Add(platformPos);
 
