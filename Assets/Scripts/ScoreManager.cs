@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;  
 
 public class ScoreManager : MonoBehaviour
 {
@@ -6,9 +7,10 @@ public class ScoreManager : MonoBehaviour
 
     private int score = 0;
 
+    public TMP_Text scoreText;   
+
     void Awake()
     {
-        
         if (Instance == null)
             Instance = this;
         else
@@ -19,8 +21,13 @@ public class ScoreManager : MonoBehaviour
     {
         score += amount;
         Debug.Log("Score: " + score);
-        //update UI HERE
+        UpdateUI();
+    }
 
+    private void UpdateUI()
+    {
+        if (scoreText != null)
+            scoreText.text = "Score: " + score;
     }
 
     public int GetScore()
