@@ -12,7 +12,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (volumeSlider != null)
         {
-            volumeSlider.value = 0f;       // Start on far left = max volume
+            volumeSlider.value = 1f;       // Start on far right = max volume
             AudioListener.volume = 1f;     // Max volume
             volumeSlider.onValueChanged.AddListener(SetVolume);
         }
@@ -61,11 +61,11 @@ public class PauseMenu : MonoBehaviour
     }
 
     // -------------------------
-    // Volume Control (Inverted)
+    // Volume Control (Right = Loud)
     // -------------------------
     public void SetVolume(float sliderValue)
     {
-        // Invert slider: left = max (1), right = 0
-        AudioListener.volume = 1f - sliderValue;
+        // Direct mapping: left = quiet (0), right = loud (1)
+        AudioListener.volume = sliderValue;
     }
 }
