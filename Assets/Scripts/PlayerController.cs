@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic; // Needed for HashSet
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -37,6 +38,9 @@ public class PlayerController : MonoBehaviour
     private bool isDead = false;
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb;
+
+    // NEW: Track platforms that have already given points
+    private HashSet<GameObject> scoredPlatforms = new HashSet<GameObject>();
 
     void Start()
     {
@@ -192,5 +196,26 @@ public class PlayerController : MonoBehaviour
         multTimeLeft += multTimeToAdd;
         currentMult += multValAdd;
         multText.text = $"Multiplier: {currentMult:F2}";
+    }
+
+    // ------------------------------
+    // NEW: Score when landing on platforms (only once per platform)
+    // ------------------------------
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            // Only give points if this platform hasn't been scored yet
+            if (!scoredPlatforms.Contains(collision.gameObject))
+            {
+                scoredPlatforms.Add(collision.gameObject);
+                ScoreManager.Instance.AddPoints(100);
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        // Nothing needed here for scoring now
     }
 }
