@@ -1523,6 +1523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08003d16367e2f542a7920d9e90b1c0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 375474901}
 --- !u!4 &869597807
 Transform:
   m_ObjectHideFlags: 0
@@ -1687,7 +1688,7 @@ GameObject:
   - component: {fileID: 908142188}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Platform
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
