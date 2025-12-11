@@ -3,7 +3,7 @@ using UnityEngine;
 public class EndTrigger : MonoBehaviour
 {
     public GameObject winScreen;
-    private bool won = false;
+    public bool won = false;
 
     void Start()
     {
