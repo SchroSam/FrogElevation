@@ -9,7 +9,7 @@ public class FrogAnimation : MonoBehaviour
     private AudioSource audioSource;
 
     private SpriteRenderer sr;
-    private bool isGrounded = true;
+    public bool isGrounded = true;
     private Rigidbody2D rb;
 
     void Start()

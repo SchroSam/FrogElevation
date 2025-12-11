@@ -3,14 +3,20 @@ using UnityEngine;
 public class EndTrigger : MonoBehaviour
 {
     public GameObject winScreen;
+    private bool won = false;
 
     void Start()
     {
         
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D collision)
     {
-        winScreen.SetActive(true);
+        if(!won && FindFirstObjectByType<FrogAnimation>().isGrounded)
+        {
+            winScreen.SetActive(true);
+            won = true;
+            Time.timeScale = 0f;
+        }
     }
 }
