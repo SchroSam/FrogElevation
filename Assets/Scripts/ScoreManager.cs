@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;  
 
+// This script is currently unused
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;

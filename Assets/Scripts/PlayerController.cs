@@ -209,7 +209,7 @@ public class PlayerController : MonoBehaviour
             if (!scoredPlatforms.Contains(collision.gameObject))
             {
                 scoredPlatforms.Add(collision.gameObject);
-                ScoreManager.Instance.AddPoints((int)(100 * currentMult));
+                AddPoints(100 * currentMult);
             }
         }
     }
