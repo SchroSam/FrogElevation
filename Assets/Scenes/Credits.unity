@@ -1628,7 +1628,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Samuel "Scott" Schroder
+  m_text: Samuel "Scott" Schroeder
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8b0ad3028e02ca546b1033ce469187a8, type: 2}
   m_sharedMaterial: {fileID: -3103625140824334343, guid: 8b0ad3028e02ca546b1033ce469187a8, type: 2}
