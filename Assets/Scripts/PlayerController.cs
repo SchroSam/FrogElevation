@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         // ------------------------------
         // NEW: Check death by velocity
         // ------------------------------
-        if (rb.linearVelocity.y <- fallVelocityToDie)
+        if (rb.linearVelocity.y < -fallVelocityToDie)
         {
             EndGame();
             return;
