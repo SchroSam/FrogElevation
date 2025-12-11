@@ -217,6 +217,7 @@ MonoBehaviour:
   sittingSprite: {fileID: -9053303239298769176, guid: a1a9df656e2bc6c4f937620ef032d41b, type: 3}
   jumpingSprite: {fileID: 3613194066116026573, guid: f9d66e297a23c77478abd4c772423837, type: 3}
   jumpSound: {fileID: 8300000, guid: 54d368da3a4ba0a4cb9b9ffc20b4c192, type: 3}
+  isGrounded: 1
 --- !u!82 &198970444
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1019,6 +1020,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlatformGenerator
       objectReference: {fileID: 0}
+    - target: {fileID: 6490017645173384922, guid: aa94cebfc6e12dc4383ed782cd7c8be6, type: 3}
+      propertyPath: plat1
+      value: 
+      objectReference: {fileID: 21300000, guid: e0714eb60da8ff84d8e1809e56f65373, type: 3}
+    - target: {fileID: 6490017645173384922, guid: aa94cebfc6e12dc4383ed782cd7c8be6, type: 3}
+      propertyPath: plat2
+      value: 
+      objectReference: {fileID: 21300000, guid: 774f061f01b29964d8dc14ca8b644b02, type: 3}
+    - target: {fileID: 6490017645173384922, guid: aa94cebfc6e12dc4383ed782cd7c8be6, type: 3}
+      propertyPath: plat3
+      value: 
+      objectReference: {fileID: 21300000, guid: c168617910c6bbd4f9970132b83328a1, type: 3}
+    - target: {fileID: 6490017645173384922, guid: aa94cebfc6e12dc4383ed782cd7c8be6, type: 3}
+      propertyPath: plat4
+      value: 
+      objectReference: {fileID: 21300000, guid: d5cc55648829d9a4fa4014f337529c11, type: 3}
     - target: {fileID: 6490017645173384922, guid: aa94cebfc6e12dc4383ed782cd7c8be6, type: 3}
       propertyPath: power1
       value: 

@@ -137,6 +137,10 @@ public class PlatformGeneratorGrid : MonoBehaviour
             // Instantiate the platform
             Vector3 platformPos = new Vector3(xPos, yPos, 0);
             platformPrefab.GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, 4)];
+            platformPrefab.GetComponent<SpriteRenderer>().flipX = (xPos >= 0) ? true : false;
+
+
+
             Instantiate(platformPrefab, platformPos, Quaternion.identity);
             allPlatformPositions.Add(platformPos);
 
