@@ -1057,6 +1057,22 @@ PrefabInstance:
       value: PlatformGenerator
       objectReference: {fileID: 0}
     - target: {fileID: 6490017645173384922, guid: aa94cebfc6e12dc4383ed782cd7c8be6, type: 3}
+      propertyPath: plat1
+      value: 
+      objectReference: {fileID: 21300000, guid: e0714eb60da8ff84d8e1809e56f65373, type: 3}
+    - target: {fileID: 6490017645173384922, guid: aa94cebfc6e12dc4383ed782cd7c8be6, type: 3}
+      propertyPath: plat2
+      value: 
+      objectReference: {fileID: 21300000, guid: 774f061f01b29964d8dc14ca8b644b02, type: 3}
+    - target: {fileID: 6490017645173384922, guid: aa94cebfc6e12dc4383ed782cd7c8be6, type: 3}
+      propertyPath: plat3
+      value: 
+      objectReference: {fileID: 21300000, guid: c168617910c6bbd4f9970132b83328a1, type: 3}
+    - target: {fileID: 6490017645173384922, guid: aa94cebfc6e12dc4383ed782cd7c8be6, type: 3}
+      propertyPath: plat4
+      value: 
+      objectReference: {fileID: 21300000, guid: d5cc55648829d9a4fa4014f337529c11, type: 3}
+    - target: {fileID: 6490017645173384922, guid: aa94cebfc6e12dc4383ed782cd7c8be6, type: 3}
       propertyPath: power1
       value: 
       objectReference: {fileID: 4947169249613583542, guid: c835bb0b2b60e944aba03866a1a79236, type: 3}
