@@ -140,3 +140,7 @@ MonoBehaviour:
   powerType: 2
   launchForce: 800
   pointVal: 5
+  moveAround: 1
+  moveSpeed: 2
+  changeDirectionTime: 1
+  moveBounds: {x: 5, y: 5}
