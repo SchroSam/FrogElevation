@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 46745956}
   - component: {fileID: 46745955}
   m_Layer: 0
-  m_Name: Audio Source
+  m_Name: MenuMusic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +149,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 26a7f467be00bc443b1e13472d7207f9, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.054
+  m_Volume: 0.252
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -744,7 +744,7 @@ GameObject:
   - component: {fileID: 1074227403}
   - component: {fileID: 1074227402}
   m_Layer: 0
-  m_Name: TitleScreen_0
+  m_Name: BackgroundImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -910,7 +910,7 @@ GameObject:
   - component: {fileID: 1846148247}
   - component: {fileID: 1846148246}
   m_Layer: 0
-  m_Name: Title_0
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
