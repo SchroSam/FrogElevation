@@ -991,11 +991,27 @@ PrefabInstance:
       value: PlatformGenerator
       objectReference: {fileID: 0}
     - target: {fileID: 6490017645173384922, guid: aa94cebfc6e12dc4383ed782cd7c8be6, type: 3}
+      propertyPath: power1
+      value: 
+      objectReference: {fileID: 4947169249613583542, guid: c835bb0b2b60e944aba03866a1a79236, type: 3}
+    - target: {fileID: 6490017645173384922, guid: aa94cebfc6e12dc4383ed782cd7c8be6, type: 3}
+      propertyPath: power2
+      value: 
+      objectReference: {fileID: 7976746714849813869, guid: f91925ffc1e705044a48ead9007bd248, type: 3}
+    - target: {fileID: 6490017645173384922, guid: aa94cebfc6e12dc4383ed782cd7c8be6, type: 3}
+      propertyPath: power3
+      value: 
+      objectReference: {fileID: 2859132244329569688, guid: b68e9f8325dc10b4b89198c4bef7a833, type: 3}
+    - target: {fileID: 6490017645173384922, guid: aa94cebfc6e12dc4383ed782cd7c8be6, type: 3}
       propertyPath: maxHeight
       value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 6490017645173384922, guid: aa94cebfc6e12dc4383ed782cd7c8be6, type: 3}
       propertyPath: minDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6490017645173384922, guid: aa94cebfc6e12dc4383ed782cd7c8be6, type: 3}
+      propertyPath: powerChance
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2229,7 +2245,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.1792453, g: 0.05131336, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.3372549, g: 0.5568628, b: 0.54901963, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

@@ -19,7 +19,14 @@ public class PlatformGeneratorGrid : MonoBehaviour
     public float startX = -6f;            // where slot 0 begins
     public float maxHeight;
     public float minDistance = 1.5f;
-    public float frogOffset = 15; 
+    public float frogOffset = 15;
+
+    [Header("Powerups")]
+    public GameObject power1;
+    public GameObject power2;
+    public GameObject power3;
+    private List<GameObject> powerUps;
+    public int powerChance = 4;
 
     //private List<int> lastRowColumns = new List<int>();  // columns used in previous row
     private List<Vector3> allPlatformPositions = new List<Vector3>();  // all platforms ever spawned
@@ -29,6 +36,7 @@ public class PlatformGeneratorGrid : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Frog");
+        powerUps = new List<GameObject>{power1, power2, power3};
         GeneratePlatforms();
     }
 
@@ -122,6 +130,18 @@ public class PlatformGeneratorGrid : MonoBehaviour
             Vector3 platformPos = new Vector3(xPos, yPos, 0);
             Instantiate(platformPrefab, platformPos, Quaternion.identity);
             allPlatformPositions.Add(platformPos);
+
+            // only remembers (and only checks) the 15 most recent platforms
+            if(allPlatformPositions.Count > 15)
+                allPlatformPositions.RemoveAt(0);
+
+            // random powerups gen
+            if(Random.Range(1, powerChance + 1) == 1) // 1 in {powerChance} chance of spawning any powerup at all
+            {
+                int powerUp = Random.Range(0, 3);
+                Vector3 powerUpPos = new Vector3(platformPos.x + Random.Range(-0.8f, 0.8f), platformPos.y + Random.Range(-0.8f, 0.8f), 0);
+                Instantiate(powerUps[powerUp], powerUpPos, Quaternion.identity);
+            }
             
             // Update startY to the highest platform created
             if (yPos > startY)
